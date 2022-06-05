@@ -50,14 +50,14 @@ export const deleteRecipes = async (req, res, next) => {
 export const updateRecipes = async (req, res, next) => {
 
     const { id } = req.params
-    const { title, imgUrl, description, budget, typeOfFood } = req.body
+    const { title, description, budget, typeOfFood } = req.body
     const userId = req.user.user._id
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id ${id}`)
 
 
 
-    const updateRecipe = { title, imgUrl, description, budget, typeOfFood }
+    const updateRecipe = { title, imgUrl: req.file.path, description, budget, typeOfFood }
 
     try {
 
