@@ -24,7 +24,7 @@ const RecpieDetails = () => {
             <LeftBackground src={leftBackground}></LeftBackground>
             <LeftBox>
                 <MobileTitle>{meal.title}</MobileTitle>
-                <ImgDetailsMeal src={meal.imgUrl} alt={meal.title}></ImgDetailsMeal>
+                <ImgDetailsMeal src={`https://recipes-food-project.herokuapp.com/${imgUrl}`} alt={meal.title}></ImgDetailsMeal>
                 <CreatorRatingBox>
                     <Creator>Created by: {meal.creator}</Creator>
                     <Rating value={meal.calculatedRating}/>
