@@ -21,11 +21,12 @@ const Form = () => {
     const [formData, setFormData] = useState({
         creator: '',
         title: '',
-        imgUrl: '',
         description: '',
         typeOfFood: '',
         budget: '',
     })
+
+    const [file, setFile] = useState();
 
     const handleInputsChange = e => {
         setFormData(prevState => ({
@@ -33,10 +34,13 @@ const Form = () => {
         }))
     }
 
+    const handleInputImage = e => {
+        setFile(e.target.files[0])
+    }
+
     const clearFormData = () => {
         setFormData({
             title: '',
-            imgUrl: '',
             description: '',
             typeOfFood: '',
             budget: ''
@@ -48,15 +52,26 @@ const Form = () => {
         clearFormData()
     }
 
+    const appendFormData = () => {
+        const formDataAppend = new FormData();
+        formDataAppend.append("creator", formData.creator);
+        formDataAppend.append("title", formData.title);
+        formDataAppend.append("description", formData.description);
+        formDataAppend.append("typeOfFood", formData.typeOfFood);
+        formDataAppend.append("budget", formData.budget);
+        formDataAppend.append("file", file);
+        return formDataAppend
+    }
+
     const handleSubmit = e => {
         e.preventDefault()
 
-        if (formData.creator === '' || formData.title === '' || formData.imgUrl === '' || formData.description === '' || formData.budget === '' || formData.typeOfFood === '') return setErrorMessage("Please fill in all fields")
+        if (formData.creator === '' || formData.title === '' || formData.description === '' || formData.budget === '' || formData.typeOfFood === '') return setErrorMessage("Please fill in all fields")
         setErrorMessage("");
         if(isEdit){
-            dispatch(updateRecipe(idRecipe,formData))
+            dispatch(updateRecipe(idRecipe,appendFormData()))
         } else{
-            dispatch(postRecipe(formData))
+            dispatch(postRecipe(appendFormData()))
         }
         clearFormData()
         navigation('/recipes')
@@ -77,7 +92,7 @@ const Form = () => {
                     <>
                         <TitleAddRecipe>Add a New recipe</TitleAddRecipe>
 
-                        <StyledForm onSubmit={handleSubmit}>
+                        <StyledForm onSubmit={handleSubmit} enctype="multipart/form-data">
                             <LeftFormItems>
                                 <FirstRowForm>
                                     <InputAddRecipe type='text' name='title' value={formData.title} id='Title' handleInputsChange={handleInputsChange} />
@@ -103,10 +118,8 @@ const Form = () => {
                                 </SecondRowSingleBox>
                             </LeftFormItems>
                             <RightFormItems>
-                                <FileBase id="img" value={formData.imgUrl} type="file" multiple={false} onDone={({ base64 }) => setFormData({ ...formData, imgUrl: base64 })} />
-                                <label htmlFor="img">
-                                    <img src={imgForm} alt="" />
-                                </label>
+                                <label htmlFor="file">Choose File</label>
+                                <input type="file" name="file" onChange={handleInputImage} id="file" accept="image/png, image/jpeg, image/jpg" required/>
                             </RightFormItems>
 
                             <ButtonSubmit type='submit'>{isEdit ? "Update" : "Add"} Now</ButtonSubmit> {isEdit ? (<StopEdit onClick={stopEdit}>Stop Editing</StopEdit>) : ""}

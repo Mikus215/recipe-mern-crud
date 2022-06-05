@@ -8,7 +8,7 @@ const Recipe = ({ creator, title, imgUrl, description, budget, calculatedRating,
 
     return (
         <StyledBox>
-            <img src={imgUrl} alt="" />
+            <img src={`https://recipes-food-project.herokuapp.com/${imgUrl}`} alt="" />
             <BottomInfo>
                 <TitleDish><span>{title}</span><span>{budget}$</span></TitleDish>
                 <Description>{cutDescription}</Description>

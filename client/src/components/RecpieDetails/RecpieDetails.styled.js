@@ -73,6 +73,7 @@ export const TitleDesktop = styled.h1`
 export const DescriptionHowToPrepare = styled.div`
    p{
        line-height: 200%;
+       white-space: pre-line;
    }
 ` 
 

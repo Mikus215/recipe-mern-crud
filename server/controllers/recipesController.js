@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 import RecipeModel from "../models/recipesModel.js";
 
+
 export const postCreateRecipes = async (req,res,next) => {
-    const { creator, title, imgUrl, description, budget, typeOfFood } = req.body
+    const { creator, title, description, budget, typeOfFood } = req.body
     const userId = req.user.user._id
 
-    const newRecipe = RecipeModel({ creator, title, imgUrl, description, budget, typeOfFood, idCreator: userId })
+    const newRecipe = RecipeModel({ creator, title, imgUrl: req.file.path, description, budget, typeOfFood, idCreator: userId })
     try {
         await newRecipe.save()
 

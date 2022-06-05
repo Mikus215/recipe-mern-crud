@@ -27,6 +27,7 @@ export const ErrorLogin = styled.h1`
     left: 50%;
     transform: translate(-50%,-50%);
     font-size: 2rem;
+    z-index: -1;
 `
 
 export const FirstRowForm = styled.div`

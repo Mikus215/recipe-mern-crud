@@ -28,7 +28,7 @@ const EditDeleteSingle = ({ title, imgUrl, description, typeOfFood, _id, budget,
 
     return (
         <EditDeleteItem>
-            <Img src={imgUrl} alt=""></Img>
+            <Img src={`https://recipes-food-project.herokuapp.com/${imgUrl}`} alt=""></Img>
             <TitleRecipe>{title}</TitleRecipe>
             <EditButton onClick={handleFillForm}>Edit</EditButton>
             <DeleteButton onClick={handleDelete}>Delete</DeleteButton>

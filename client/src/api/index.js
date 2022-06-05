@@ -3,6 +3,7 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 const API = axios.create({ baseURL: 'https://recipes-food-project.herokuapp.com' })
+// const API = axios.create({ baseURL: 'http://localhost:5000' })
 
 export const fetchRecipes= () => API.get('/recipes', {withCredentials: true});
 export const fetchRecipe = id => API.get(`/recipes/details/${id}`, { withCredentials: true });
